@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 
 public class ImageTransf {
+    private static final int DELAY = 1;
+
     public static int[][] invert(int[][] binImg) {
         int[][] result = new int[binImg.length][binImg[0].length];
         for (int i = 0; i < binImg.length; i++) {
@@ -75,6 +77,14 @@ public class ImageTransf {
         return result;
     }
 
+    public static int[][] open(int[][] binImg, int[][] SE) {
+        return dilate(erode(binImg, SE), SE);
+    }
+
+    public static int[][] close(int[][] binImg, int[][] SE) {
+        return erode(dilate(binImg, SE), SE);
+    }
+
     public static void draw(int[][] binImg, String title) {
         int width = binImg.length;
         int height = binImg[0].length;
@@ -91,7 +101,7 @@ public class ImageTransf {
     }
 
     public static Picture getGrayScale(Picture img) {
-        Picture grayPic = new Picture(img.width(), img.height()); 
+        Picture grayPic = new Picture(img.width(), img.height());
         int width = img.width();
         int height = img.height();
         for (int i = 0; i < width; i++) {
@@ -128,32 +138,47 @@ public class ImageTransf {
     }
 
     public static void main(String[] args) {
-        Picture img = new Picture(args[2]);
+        Picture img = new Picture(args[args.length - 1]);
         In inputSE = new In(args[1]);
 
         int m = inputSE.readInt();
         int n = inputSE.readInt();
-        int[][] SE = new int[m][n];
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        int[][] SE = new int[m][n];
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
                 SE[i][j] = inputSE.readInt();
-            }
-        }
+
         Picture imgG = getGrayScale(img);
         img.show("Source Image");
-        
+
         int[][] binImg = getBinary(imgG);
         draw(binImg, "Binary image");
 
-        if (args[0].equals("-d")) {
+        switch (args[0]) {
+        case "-d":
             StdOut.println("Dilating");
             int[][] dilated = dilate(binImg, SE);
             draw(dilated, "Dilated image");
-        } else {
+            break;
+        case "-e":
             StdOut.println("Eroding");
             int[][] eroded = erode(binImg, SE);
             draw(eroded, "Eroded image");
+            break;
+        case "-o":
+            StdOut.println("Opening");
+            int[][] opened = open(binImg, SE);
+            draw(opened, "Opened image");
+            break;
+        case "-c":
+            StdOut.println("Closing");
+            int[][] closed = close(binImg, SE);
+            draw(closed, "Closed image");
+            break;
+        default:
+            StdOut.println("Invalid option. -d for dilate, -e for erode, -o for open and -c for close");
+            break;
         }
     }
 }
