@@ -11,6 +11,6 @@ Várias transformações de imagens podem ser realizadas por operadores de image
 
 args1: -d ou -e
 
-args2: arquivo texto contendo o elemento estruturante*
+args2: nome do arquivo texto contendo o elemento estruturante*
 
-args3: nome do arquive da imagem
+args3: nome do arquivo da imagem
