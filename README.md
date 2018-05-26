@@ -7,10 +7,10 @@ Várias transformações de imagens podem ser realizadas por operadores de image
   
 *$ make*
 
-*$ java ImageTransf args1 args2 args3*
+*$ java ImageTransf arg1 arg2 arg3*
 
-args1: -d ou -e
+arg1: -d ou -e
 
-args2: nome do arquivo texto contendo o elemento estruturante*
+arg2: nome do arquivo texto contendo o elemento estruturante*
 
-args3: nome do arquivo da imagem
+arg3: nome do arquivo da imagem
