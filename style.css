@@ -1,0 +1,48 @@
+#I {
+    position: static; 
+    float: left;
+    width: 500px;
+    font-size: 0;
+}
+#SE {
+    position: static; 
+    float: left;
+    border-style: solid;
+    width: 150px;
+    font-size: 0;
+}
+#imageRGB{
+    position: static;
+    float: left;
+}
+#imageB{
+    position: static;
+    float: left;
+}
+canvas{
+    position: static;
+    float: left;
+}
+
+.sdBlock{
+    width: 50px;
+    height: 50px;
+    background: white;
+    position: static;
+    float: left;
+    
+}
+
+.imageBlock{
+    width: 5px;
+    height: 5px;
+    background: black;
+    position: static;
+    float: left;
+    
+}
+.title{
+    align-content: center;
+    position: static;
+    top: 5px; 
+}
