@@ -145,8 +145,6 @@ public class ImageTransf {
                 int b = c.getBlue();
                 int y = (int) Math.round(0.299 * r + 0.587 * g + 0.114 * b);
                 grayImg[i][j] = y;
-                // Color graytone = new Color(y, y, y);
-                // grayPic.set(i, j, graytone);
             }
         }
         return grayImg;
@@ -197,6 +195,9 @@ public class ImageTransf {
         if (args[2].equals("-b")) {
             tmax = 1; // Image is binary
             imgMatrix = getBinary(img);
+        } else if (args[2].equals("-c")) {
+            tmax = 255; // Image is colored
+            imgMatrix = getGrayScale(toGrayScale(img));
         } else if (args[2].equals("-g")) {
             tmax = 255; // Image is grayscale
             imgMatrix = getGrayScale(img);
@@ -212,7 +213,7 @@ public class ImageTransf {
                 SE[i][j] = inputSE.readInt();
 
         img.show("Source image");
-        if (tmax == 255)
+        if (args[2].equals("-c"))
             toGrayScale(img).show("Grayscale source image");
 
         switch (args[0]) {
@@ -247,6 +248,22 @@ public class ImageTransf {
                 draw(closed, "Closed image");
             else
                 drawGray(closed, "Closed grayscale image");
+            break;
+        case "-oc":
+            StdOut.println("Opening then closing");
+            int[][] openclosed = close(open(imgMatrix, SE), SE);
+            if (tmax == 1)
+                draw(openclosed, "Open-Closed image");
+            else
+                drawGray(openclosed, "Open-Closed grayscale image");
+            break;
+        case "-co":
+            StdOut.println("Closing then opening");
+            int[][] closeopened = open(close(imgMatrix, SE), SE);
+            if (tmax == 1)
+                draw(closeopened, "Close-opened image");
+            else
+                drawGray(closeopened, "Close-opened grayscale image");
             break;
         default:
             throw new IllegalArgumentException(
