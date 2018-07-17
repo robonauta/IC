@@ -5,9 +5,9 @@
 
   * **ImageTransf**: programa que implementa transformações básicas sobre imagens, tais como: erosão, dilatação, closing e opening. Execução:
   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*$ make*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*$ make*
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*$ java ImageTransf arg1 arg2 arg3 arg4*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*$ java ImageTransf arg1 arg2 arg3 arg4*
 
   * arg1: 
     * -d (para operação de dilatação) 
@@ -30,7 +30,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;(dilatar a imagem cinza "RedApple.png", localizada no diretório "media").
 
   * **Síntaxe do arquivo contendo o elemento estruturante**: </br>
-&nbsp;&nbsp;&nbsp;&nbsp;n_de_linhas n_de_colunas
+&nbsp;&nbsp;n_de_linhas n_de_colunas
 
 | 1 | 1 | ... | 1 |
 |---|---|-----|---|
@@ -40,7 +40,7 @@
 | 1 | 1 | ... | 1 |
 
    * Exemplo: elemento estruturante em cruz 3x3 </br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 3
+&nbsp;&nbsp;&nbsp;&nbsp;3 3
 
 | 1 | 0 | 1 |
 |---|---|---|
