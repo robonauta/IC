@@ -29,3 +29,19 @@ arg4: nome do arquivo da imagem
 Exemplo: *$ java ImageTransf -d SE -g media/RedApple.png*
 
 (dilatar a imagem cinza "RedApple.png", localizada no diretório "media").
+
+Síntaxe do arquivo contendo o elemento estruturante: 
+n_de_linhas n_de_colunas
+1 1 ... 1
+1 .       
+.   .   .
+.     . .
+.       .
+1 1 ... 1
+
+Exemplo: elemento estruturante em cruz 3x3
+3 3
+1 0 1
+0 0 0
+1 0 1
+ 
