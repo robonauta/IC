@@ -21,4 +21,5 @@ arg3: -b (no caso de uma imagem binária) ou -g (no caso de uma imagem cinza)
 
 arg4: nome do arquivo da imagem
 
-Exemplo: java ImageTransf -d SE -g media/RedApple.png (dilatar a imagem cinza "RedApple.png", localizada no diretório "media").
+Exemplo: *$ java ImageTransf -d SE -g media/RedApple.png*
+(dilatar a imagem cinza "RedApple.png", localizada no diretório "media").
