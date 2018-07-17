@@ -9,10 +9,20 @@ Várias transformações de imagens podem ser realizadas por operadores de image
 
 *$ java ImageTransf arg1 arg2 arg3 arg4*
 
-arg1: -d (para operação de dilatação) ou -e (para operaço de erosão)
+arg1: 
+  * -d (para operação de dilatação) 
+  * -e (para operação de erosão)
+  * -o (para operação de opening) 
+  * -c (para operação de closing)
 
 arg2: nome do arquivo texto contendo o elemento estruturante
 
-arg3: -b (no caso de uma imagem binária) ou -g (no caso de uma imagem cinza) 
+arg3: 
+  * -b (no caso de uma imagem binária) 
+  * -g (no caso de uma imagem cinza) 
 
 arg4: nome do arquivo da imagem
+
+Exemplo: *$ java ImageTransf -d SE -g media/RedApple.png*
+
+(dilatar a imagem cinza "RedApple.png", localizada no diretório "media").
