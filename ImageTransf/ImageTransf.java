@@ -227,7 +227,6 @@ public class ImageTransf {
         case "-e":
             StdOut.println("Eroding");
             int[][] eroded = erode(imgMatrix, SE);
-            StdOut.println("tmax" + tmax);
             if (tmax == 1)
                 draw(eroded, "Eroded binary image");
             else
@@ -236,12 +235,18 @@ public class ImageTransf {
         case "-o":
             StdOut.println("Opening");
             int[][] opened = open(imgMatrix, SE);
-            draw(opened, "Opened image");
+            if (tmax == 1)
+                draw(opened, "Opened image");
+            else
+                drawGray(opened, "Opened grayscale image");
             break;
         case "-c":
             StdOut.println("Closing");
             int[][] closed = close(imgMatrix, SE);
-            draw(closed, "Closed image");
+            if (tmax == 1)
+                draw(closed, "Closed image");
+            else
+                drawGray(closed, "Closed grayscale image");
             break;
         default:
             throw new IllegalArgumentException(
