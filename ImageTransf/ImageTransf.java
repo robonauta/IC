@@ -140,11 +140,8 @@ public class ImageTransf {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Color c = img.get(i, j);
-                int r = c.getRed();
                 int g = c.getGreen();
-                int b = c.getBlue();
-                int y = (int) Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-                grayImg[i][j] = y;
+                grayImg[i][j] = g;
             }
         }
         return grayImg;
