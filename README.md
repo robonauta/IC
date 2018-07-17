@@ -7,10 +7,12 @@ Várias transformações de imagens podem ser realizadas por operadores de image
   
 *$ make*
 
-*$ java ImageTransf arg1 arg2 arg3*
+*$ java ImageTransf arg1 arg2 arg3 arg4*
 
-arg1: -d ou -e
+arg1: -d (para operação de dilatação) ou -e (para operaço de erosão)
 
-arg2: nome do arquivo texto contendo o elemento estruturante*
+arg2: nome do arquivo texto contendo o elemento estruturante
 
-arg3: nome do arquivo da imagem
+arg3: -b (no caso de uma imagem binária) ou -g (no caso de uma imagem cinza) 
+
+arg4: nome do arquivo da imagem
