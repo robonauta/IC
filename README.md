@@ -32,6 +32,7 @@ Exemplo: *$ java ImageTransf -d SE -g media/RedApple.png*
 
 Síntaxe do arquivo contendo o elemento estruturante: 
 n_de_linhas n_de_colunas
+
 |   |   |     |   |
 |---|---|-----|---|
 | 1 | 1 | ... | 1 |
