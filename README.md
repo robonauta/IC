@@ -21,6 +21,7 @@ arg2: nome do arquivo texto contendo o elemento estruturante
 
 arg3: 
   * -b (no caso de uma imagem binária) 
+  * -c (no caso de uma imagem colorida)
   * -g (no caso de uma imagem cinza) 
 
 arg4: nome do arquivo da imagem
