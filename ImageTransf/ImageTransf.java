@@ -1,3 +1,22 @@
+
+/******************************************************************************
+ *  Compilation:  javac ImageTransf.java
+ *  Execution:    java ImageTransf -co SE -g media/salt-and-pepper.png
+ *  Dependencies: Picture.java In.java StdDraw.java StdOut.java
+ *
+ * 
+ *  This program takes an operation, a structuring element, an image kind and
+ *  an image as arguments and prints the output of that operation on the specified
+ *  image. 
+ *
+ *  Structuring element syntax (only binary SEs): 
+ *  number_of_rows number_of_columns
+ *  draw of the specified SE as an matrix of 0's and 1's
+ *  0 for black regions and 1 for white regions
+ *
+ *  Author: Pedro Henrique Barbosa de Almeida
+ ******************************************************************************/
+
 import resources.*;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -5,12 +24,10 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 
-// 0 - black
-// t_max - white
-
 public class ImageTransf {
     private static int tmax;
 
+    // Invert colors of a binary image
     public static int[][] invert(int[][] binImg) {
         int[][] result = new int[binImg.length][binImg[0].length];
         for (int i = 0; i < binImg.length; i++) {
@@ -24,13 +41,14 @@ public class ImageTransf {
         return result;
     }
 
+    // Find maximum intensity value of a window
     private static int findTmax(int[][] binImg, int[][] SE, int i, int j) {
         int insideTmax = -1;
         int originX = SE.length / 2;
         int originY = SE[0].length / 2;
         for (int p = 0; p < SE.length; p++) {
             for (int q = 0; q < SE[0].length; q++) {
-                if (SE[p][q] == 1) {
+                if (SE[p][q] == 0) {
                     int distX = p - originX;
                     int distY = q - originY;
                     if ((i + distX) < 0 || (i + distX) >= binImg.length || (j + distY) < 0
@@ -46,13 +64,14 @@ public class ImageTransf {
         return insideTmax;
     }
 
+    // Find minimium intensity value of a window
     private static int findTmin(int[][] binImg, int[][] SE, int i, int j) {
         int insideTmin = Integer.MAX_VALUE;
         int originX = SE.length / 2;
         int originY = SE[0].length / 2;
         for (int p = 0; p < SE.length; p++) {
             for (int q = 0; q < SE[0].length; q++) {
-                if (SE[p][q] == 1) {
+                if (SE[p][q] == 0) {
                     int distX = p - originX;
                     int distY = q - originY;
                     if ((i + distX) >= 0 && (i + distX) < binImg.length && (j + distY) >= 0
@@ -66,6 +85,7 @@ public class ImageTransf {
         return insideTmin;
     }
 
+    // Generic operation on a image
     private static int[][] operation(int[][] binImg, int[][] SE, boolean isDil) {
         int[][] result = new int[binImg.length][binImg[0].length];
         for (int i = 0; i < binImg.length; i++)
@@ -84,23 +104,28 @@ public class ImageTransf {
         return result;
     }
 
+    // Erosion
     public static int[][] erode(int[][] img, int[][] SE) {
         return operation(img, SE, false);
     }
 
+    // Dilation
     public static int[][] dilate(int[][] img, int[][] SE) {
         return operation(img, SE, true);
     }
 
+    // Opening
     public static int[][] open(int[][] img, int[][] SE) {
         return dilate(erode(img, SE), SE);
     }
 
+    // Closing
     public static int[][] close(int[][] img, int[][] SE) {
         return erode(dilate(img, SE), SE);
     }
 
-    private static void draw(int[][] binImg, String title) {
+    // Draw a binary image
+    private static void drawBin(int[][] binImg, String title) {
         int width = binImg.length;
         int height = binImg[0].length;
         Picture picture = new Picture(width, height);
@@ -118,6 +143,7 @@ public class ImageTransf {
         picture.show(title);
     }
 
+    // Draw a grayscale image
     private static void drawGray(int[][] binImg, String title) {
         int width = binImg.length;
         int height = binImg[0].length;
@@ -133,6 +159,7 @@ public class ImageTransf {
         picture.show(title);
     }
 
+    // Extract intensity from an grayscale image to a matrix
     private static int[][] getGrayScale(Picture img) {
         int width = img.width();
         int height = img.height();
@@ -147,6 +174,7 @@ public class ImageTransf {
         return grayImg;
     }
 
+    // Extract intensity from a binary image to a matrix
     private static int[][] getBinary(Picture img) {
         int width = img.width();
         int height = img.height();
@@ -166,6 +194,7 @@ public class ImageTransf {
         return binImg;
     }
 
+    // Parse an image to grayscale
     public static Picture toGrayScale(Picture img) {
         Picture grayPic = new Picture(img.width(), img.height());
         int width = img.width();
@@ -218,7 +247,7 @@ public class ImageTransf {
             StdOut.println("Dilating");
             int[][] dilated = dilate(imgMatrix, SE);
             if (tmax == 1)
-                draw(dilated, "Dilated binary image");
+                drawBin(dilated, "Dilated binary image");
             else
                 drawGray(dilated, "Dilated grayscale image");
             break;
@@ -226,7 +255,7 @@ public class ImageTransf {
             StdOut.println("Eroding");
             int[][] eroded = erode(imgMatrix, SE);
             if (tmax == 1)
-                draw(eroded, "Eroded binary image");
+                drawBin(eroded, "Eroded binary image");
             else
                 drawGray(eroded, "Eroded grayscale image");
             break;
@@ -234,7 +263,7 @@ public class ImageTransf {
             StdOut.println("Opening");
             int[][] opened = open(imgMatrix, SE);
             if (tmax == 1)
-                draw(opened, "Opened image");
+                drawBin(opened, "Opened image");
             else
                 drawGray(opened, "Opened grayscale image");
             break;
@@ -242,7 +271,7 @@ public class ImageTransf {
             StdOut.println("Closing");
             int[][] closed = close(imgMatrix, SE);
             if (tmax == 1)
-                draw(closed, "Closed image");
+                drawBin(closed, "Closed image");
             else
                 drawGray(closed, "Closed grayscale image");
             break;
@@ -250,7 +279,7 @@ public class ImageTransf {
             StdOut.println("Opening then closing");
             int[][] openclosed = close(open(imgMatrix, SE), SE);
             if (tmax == 1)
-                draw(openclosed, "Open-Closed image");
+                drawBin(openclosed, "Open-Closed image");
             else
                 drawGray(openclosed, "Open-Closed grayscale image");
             break;
@@ -258,7 +287,7 @@ public class ImageTransf {
             StdOut.println("Closing then opening");
             int[][] closeopened = open(close(imgMatrix, SE), SE);
             if (tmax == 1)
-                draw(closeopened, "Close-opened image");
+                drawBin(closeopened, "Close-opened image");
             else
                 drawGray(closeopened, "Close-opened grayscale image");
             break;
