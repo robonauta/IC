@@ -14,6 +14,8 @@ arg1:
   * -e (para operação de erosão)
   * -o (para operação de opening) 
   * -c (para operação de closing)
+  * -co (close then open)
+  * -oc (open then close)
 
 arg2: nome do arquivo texto contendo o elemento estruturante
 
