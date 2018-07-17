@@ -3,11 +3,9 @@
 
 * Produção preliminar 
 
-  * **ImageTransf**: programa que implementa transformações básicas sobre imagens, tais como: erosão, dilatação, closing e opening. Execução:
-  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*$ make*
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*$ java ImageTransf arg1 arg2 arg3 arg4*
+  * **ImageTransf**: programa que implementa transformações básicas sobre imagens, tais como: erosão, dilatação, closing e opening. Execução: </br>  
+*$ make* </br>
+*$ java ImageTransf arg1 arg2 arg3 arg4*
 
   * arg1: 
     * -d (para operação de dilatação) 
