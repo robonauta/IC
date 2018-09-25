@@ -25,7 +25,9 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 
 public class ImageTransf {
-    private static int tmax;
+    private static int tmax = 255;
+    private static boolean isBinary;
+    private static boolean isColorful = false;
 
     // Invert colors of a binary image
     public static int[][] invert(int[][] binImg) {
@@ -48,7 +50,7 @@ public class ImageTransf {
         int originY = SE[0].length / 2;
         for (int p = 0; p < SE.length; p++) {
             for (int q = 0; q < SE[0].length; q++) {
-                if (SE[p][q] == 0) {
+                if (SE[p][q] == 1) {
                     int distX = p - originX;
                     int distY = q - originY;
                     if ((i + distX) < 0 || (i + distX) >= binImg.length || (j + distY) < 0
@@ -71,7 +73,7 @@ public class ImageTransf {
         int originY = SE[0].length / 2;
         for (int p = 0; p < SE.length; p++) {
             for (int q = 0; q < SE[0].length; q++) {
-                if (SE[p][q] == 0) {
+                if (SE[p][q] == 1) {
                     int distX = p - originX;
                     int distY = q - originY;
                     if ((i + distX) >= 0 && (i + distX) < binImg.length && (j + distY) >= 0
@@ -94,14 +96,23 @@ public class ImageTransf {
 
         for (int i = 0; i < binImg.length; i++) {
             for (int j = 0; j < binImg[0].length; j++) {
-                if (isDil)
+                if (!isDil)
                     result[i][j] = findTmin(binImg, SE, i, j);
                 else
                     result[i][j] = findTmax(binImg, SE, i, j);
             }
-
         }
         return result;
+    }
+
+    public static int[][] gradient(int[][] img, int[][] SE) {
+        int[][] delta = dilate(img, SE);
+        int[][] epsilon = erode(img, SE);
+        int[][] gradient = new int[img.length][img[0].length];
+        for (int i = 0; i < img.length; i++)
+            for (int j = 0; j < img[0].length; j++)
+                gradient[i][j] = delta[i][j] - epsilon[i][j];
+        return gradient;
     }
 
     // Erosion
@@ -124,43 +135,30 @@ public class ImageTransf {
         return erode(dilate(img, SE), SE);
     }
 
-    // Draw a binary image
-    private static void drawBin(int[][] binImg, String title) {
-        int width = binImg.length;
-        int height = binImg[0].length;
-        Picture picture = new Picture(width, height);
-        for (int row = 0; row < width; row++) {
-            for (int col = 0; col < height; col++) {
-                if (binImg[row][col] == 0)
-                    picture.set(row, col, Color.BLACK);
-                else
-                    picture.set(row, col, new Color(255, 255, 255));
-
-                // picture.set(row, col, new Color(binImg[row][col], binImg[row][col],
-                // binImg[row][col]));
-            }
-        }
-        picture.show(title);
-    }
+    /*
+     * // Draw a binary image private static void drawBin(int[][] binImg, String
+     * title) { int width = binImg.length; int height = binImg[0].length; Picture
+     * picture = new Picture(width, height); for (int row = 0; row < width; row++) {
+     * for (int col = 0; col < height; col++) { if (binImg[row][col] == 0)
+     * picture.set(row, col, Color.BLACK); else picture.set(row, col, new Color(255,
+     * 255, 255)); // picture.set(row, col, new Color(binImg[row][col],
+     * binImg[row][col], // binImg[row][col])); } } picture.show(title); }
+     */
 
     // Draw a grayscale image
-    private static void drawGray(int[][] binImg, String title) {
-        int width = binImg.length;
-        int height = binImg[0].length;
+    private static void draw(int[][] img, String title) {
+        int width = img.length;
+        int height = img[0].length;
         Picture picture = new Picture(width, height);
-        for (int row = 0; row < width; row++) {
-            for (int col = 0; col < height; col++) {
-                if (binImg[row][col] == 0)
-                    picture.set(row, col, Color.BLACK);
-                else
-                    picture.set(row, col, new Color(binImg[row][col], binImg[row][col], binImg[row][col]));
-            }
-        }
+        for (int row = 0; row < width; row++)
+            for (int col = 0; col < height; col++)
+                picture.set(row, col, new Color(img[row][col], img[row][col], img[row][col]));
         picture.show(title);
     }
 
     // Extract intensity from an grayscale image to a matrix
-    private static int[][] getGrayScale(Picture img) {
+    private static int[][] getIntensity(Picture img) {
+        SET<Integer> colorsOftheImage = new SET<Integer>();
         int width = img.width();
         int height = img.height();
         int[][] grayImg = new int[width][height];
@@ -168,31 +166,30 @@ public class ImageTransf {
             for (int j = 0; j < height; j++) {
                 Color c = img.get(i, j);
                 int g = c.getGreen();
-                grayImg[i][j] = g;
+                if (c.getGreen() == c.getRed() && c.getBlue() == c.getGreen()) {
+                    colorsOftheImage.add(g);
+                    grayImg[i][j] = g;
+                } else {
+                    isColorful = true;
+                    return getIntensity(toGrayScale(img));
+                }
             }
         }
+        if (colorsOftheImage.size() <= 2)
+            isBinary = true;
+        else
+            isBinary = false;
         return grayImg;
     }
 
-    // Extract intensity from a binary image to a matrix
-    private static int[][] getBinary(Picture img) {
-        int width = img.width();
-        int height = img.height();
-        int[][] binImg = new int[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                Color c = img.get(i, j);
-                int r = c.getRed();
-                int g = c.getGreen();
-                int b = c.getBlue();
-                if ((r >= 0 && r <= 100) && (g >= 0 && g <= 100) && (b >= 0 && b <= 100))
-                    binImg[i][j] = 0;
-                else
-                    binImg[i][j] = 1;
-            }
-        }
-        return binImg;
-    }
+    /*
+     * // Extract intensity from a binary image to a matrix private static int[][]
+     * getBinary(Picture img) { int width = img.width(); int height = img.height();
+     * int[][] binImg = new int[width][height]; for (int i = 0; i < width; i++) {
+     * for (int j = 0; j < height; j++) { Color c = img.get(i, j); int r =
+     * c.getRed(); int g = c.getGreen(); int b = c.getBlue(); if ((r == 0) && (g ==
+     * 0) && (b == 0)) binImg[i][j] = 0; else binImg[i][j] = 1; } } return binImg; }
+     */
 
     // Parse an image to grayscale
     public static Picture toGrayScale(Picture img) {
@@ -214,21 +211,29 @@ public class ImageTransf {
     }
 
     public static void main(String[] args) {
-        Picture img = new Picture(args[args.length - 1]);
-        In inputSE = new In(args[1]);
+        StdOut.println("Type the letter corresponding to the operation you want: ");
+        StdOut.println("d - dilation");
+        StdOut.println("e - erosion");
+        StdOut.println("o - opening");
+        StdOut.println("c - closing");
+        StdOut.println("co - close-open");
+        StdOut.println("oc - open-close");
+        StdOut.println("g - gradient");
+        String op = StdIn.readString();
+        StdOut.print("\nType the SE filename: ");
+        String StructuringElement = StdIn.readString();
+        StdOut.print("\nType the image filename:  ");
+        String image = StdIn.readString();
+        StdOut.println("\nRun in verborragic mode?: ");
+        StdOut.println("y - yes");
+        StdOut.println("n - no");
+        String verb = StdIn.readString();
+
+        Picture img = new Picture(image);
+        In inputSE = new In(StructuringElement);
         int[][] imgMatrix;
 
-        if (args[2].equals("-b")) {
-            tmax = 1; // Image is binary
-            imgMatrix = getBinary(img);
-        } else if (args[2].equals("-c")) {
-            tmax = 255; // Image is colored
-            imgMatrix = getGrayScale(toGrayScale(img));
-        } else if (args[2].equals("-g")) {
-            tmax = 255; // Image is grayscale
-            imgMatrix = getGrayScale(img);
-        } else
-            throw new IllegalArgumentException("Invalid option. -g for grayscale picture or -b for binary picture.");
+        imgMatrix = getIntensity(img);
 
         int m = inputSE.readInt();
         int n = inputSE.readInt();
@@ -239,61 +244,98 @@ public class ImageTransf {
                 SE[i][j] = inputSE.readInt();
 
         img.show("Source image");
-        if (args[2].equals("-c"))
+        if (isColorful)
             toGrayScale(img).show("Grayscale source image");
 
-        switch (args[0]) {
-        case "-d":
+        int[][] result;
+        switch (op) {
+        case "d":
             StdOut.println("Dilating");
-            int[][] dilated = dilate(imgMatrix, SE);
-            if (tmax == 1)
-                drawBin(dilated, "Dilated binary image");
-            else
-                drawGray(dilated, "Dilated grayscale image");
+            result = dilate(imgMatrix, SE);
+            draw(result, "Dilated grayscale image");
             break;
-        case "-e":
+        case "e":
             StdOut.println("Eroding");
-            int[][] eroded = erode(imgMatrix, SE);
-            if (tmax == 1)
-                drawBin(eroded, "Eroded binary image");
-            else
-                drawGray(eroded, "Eroded grayscale image");
+            result = erode(imgMatrix, SE);
+            draw(result, "Eroded grayscale image");
             break;
-        case "-o":
+        case "o":
             StdOut.println("Opening");
-            int[][] opened = open(imgMatrix, SE);
-            if (tmax == 1)
-                drawBin(opened, "Opened image");
-            else
-                drawGray(opened, "Opened grayscale image");
+            result = open(imgMatrix, SE);
+            draw(result, "Opened grayscale image");
             break;
-        case "-c":
+        case "c":
             StdOut.println("Closing");
-            int[][] closed = close(imgMatrix, SE);
-            if (tmax == 1)
-                drawBin(closed, "Closed image");
-            else
-                drawGray(closed, "Closed grayscale image");
+            result = close(imgMatrix, SE);
+            draw(result, "Closed grayscale image");
             break;
-        case "-oc":
+        case "oc":
             StdOut.println("Opening then closing");
-            int[][] openclosed = close(open(imgMatrix, SE), SE);
-            if (tmax == 1)
-                drawBin(openclosed, "Open-Closed image");
-            else
-                drawGray(openclosed, "Open-Closed grayscale image");
+            result = close(open(imgMatrix, SE), SE);
+            draw(result, "Open-Closed grayscale image");
             break;
-        case "-co":
+        case "co":
             StdOut.println("Closing then opening");
-            int[][] closeopened = open(close(imgMatrix, SE), SE);
-            if (tmax == 1)
-                drawBin(closeopened, "Close-opened image");
-            else
-                drawGray(closeopened, "Close-opened grayscale image");
+            result = open(close(imgMatrix, SE), SE);
+            draw(result, "Close-opened grayscale image");
+            break;
+        case "g":
+            StdOut.println("Gradient");
+            result = gradient(imgMatrix, SE);
+            draw(result, "Grayscale image gradient");
             break;
         default:
             throw new IllegalArgumentException(
-                    "Invalid option. -d for dilate, -e for erode, -o for open and -c for close");
+                    "Invalid option. d for dilate, e for erode, o for open, c for close and g for gradient");
+        }
+        
+        StdOut.println("isBinary?: " + isBinary);
+        StdOut.println("isColorful?: " + isColorful);
+        StdOut.println("isGray?: " + !(isColorful || isBinary));
+
+        if (verb.equals("y")) {
+            StdOut.println("Structuring element: ");
+            for (int i = 0; i < SE.length; i++) {
+                for (int j = 0; j < SE[0].length; j++)
+                    StdOut.print(SE[i][j] + " ");
+                StdOut.println();
+            }
+            StdOut.println("\nImage: ");
+            if (isBinary) {
+                for (int i = 0; i < imgMatrix.length; i++) {
+                    for (int j = 0; j < imgMatrix[0].length; j++) {
+                        if (imgMatrix[i][j] == 255)
+                            StdOut.print("1 ");
+                        else
+                            StdOut.print(imgMatrix[i][j] + " ");
+                    }
+                    StdOut.println();
+                }
+            } else {
+                for (int i = 0; i < imgMatrix.length; i++) {
+                    for (int j = 0; j < imgMatrix[0].length; j++)
+                        StdOut.print(imgMatrix[i][j] + " ");
+                    StdOut.println();
+                }
+            }
+            StdOut.println("\nOperated image: ");
+            if (isBinary) {
+                for (int i = 0; i < result.length; i++) {
+                    for (int j = 0; j < result[0].length; j++) {
+                        if (result[i][j] == 255)
+                            StdOut.print("1 ");
+                        else
+                            StdOut.print(result[i][j] + " ");
+                    }
+                    StdOut.println();
+                }
+            } else {
+                for (int i = 0; i < result.length; i++) {
+                    for (int j = 0; j < result[0].length; j++)
+                        StdOut.print(result[i][j] + " ");
+                    StdOut.println();
+                }
+            }
         }
     }
 }
