@@ -1,20 +1,8 @@
-montaDocWeb.html
-Descrição das atividades acadêmicas desenvolvidas.aux
-Descrição das atividades acadêmicas desenvolvidas.log
-Descrição das atividades acadêmicas desenvolvidas.pdf
-Descrição das atividades acadêmicas desenvolvidas.tex
-Descrição das atividades acadêmicas desenvolvidas.synctex.gz
-projetoFAPESPpdf
-resumoescolar.pdf
-Referências.tex
-Histórico Escolar.pdf
-termo_de_outorga_-_processo-2018_11899-8.pdf
-declaracao_inicio_signed.pdf
-Cancelamento Pibic.pdf
-DECLARAÇÃO DE DESEMPREGO.pdf
-Ipaq_versao_curta_questionario.pdf
-Learning From Data - A short course - Abu-Mostafa, Magdon-Ismail, Lin - AMLBook.com - 2012.pdf
-PIBIC_cancelado.pdf
-Segmentação interativa de imagens - Bruno Klava.pdf
-anexo_signed.pdf
-parecer.pdf
+segmentar/
+sergmentadas/
+tests/
+Documentos/
+comparações/ 
+neural-networks-and-deep-learning/
+*.pdf
+REMARK
