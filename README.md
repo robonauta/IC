@@ -51,7 +51,7 @@ n_de_linhas n_de_colunas
 
 ```
 image = io.imread('filename.jpg')
-processor = SLIC(image = image, K = 10000, M = 1)
+processor = SLIC(image = image, binaryImg = binaryImg, K = 10000, M = 1)
 labels = processor.execute(iterations = 3, labWeight = 0.2)
 ``` 
 
