@@ -5,11 +5,13 @@
 
 * **ImageTransf**: programa que implementa transformações básicas sobre imagens, tais como: erosão, dilatação, closing e opening. Execução:
 
-```$ make 
+```
+$ make 
 $ java ImageTransf
 ```
    <p>Em seguida, o prompt perguntará qual a operação que o usuário deseja, o nome do arquivo contendo o elemento estruturante, o nome do arquivo da imagem e se deve exibir as matrizes que representam a imagem, possibilitando uma visualização matemática das operações. </p>
   <p> Um arquivo que contém o elemento estruturante (ES) consiste basicamente de um arquivo texto. Na primeira linha, deve conter dois inteiros que indicam o número de linhas e colunas, respectivamente. Em seguida, há uma sequência de inteiros 0 ou 1, onde os números 1 dão o formato do ES. Exemplo de ES em formato de cruz com 3 linhas e 3 colunas: </p>
+  
 ```
 3 3
 0 1 0
