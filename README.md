@@ -5,46 +5,18 @@
 
 * **ImageTransf**: programa que implementa transformações básicas sobre imagens, tais como: erosão, dilatação, closing e opening. Execução:
 
-`$ make
-$ java ImageTransf arg1 arg2 arg3 arg4`
-
-  * arg1: 
-    * -d (para operação de dilatação) 
-    * -e (para operação de erosão)
-    * -o (para operação de opening) 
-    * -c (para operação de closing)
-    * -co (close then open)
-    * -oc (open then close)
-
-  * arg2: nome do arquivo texto contendo o elemento estruturante
-
-  * arg3: 
-    * -b (no caso de uma imagem binária) 
-    * -c (no caso de uma imagem colorida)
-    * -g (no caso de uma imagem cinza) 
-
-  * arg4: nome do arquivo da imagem
-
-  * Exemplo: *$ java ImageTransf -d SE -g media/RedApple.png*</br>
-(dilatar a imagem cinza "RedApple.png", localizada no diretório "media").
-
-  * **Síntaxe do arquivo contendo o elemento estruturante (apenas elementos estruturantes binários)**: </br>
-n_de_linhas n_de_colunas
-
-| 1 | 1 | ... | 1 |
-|---|---|-----|---|
-| . | . |     |   |
-| . |   | .   |   |
-| . |   |     | . |
-| 1 | 1 | ... | 1 |
-
-   * Exemplo: elemento estruturante em cruz 3x3 </br>
+```$ make 
+$ java ImageTransf
+```
+   <p>Em seguida, o prompt perguntará qual a operação que o usuário deseja, o nome do arquivo contendo o elemento estruturante, o nome do arquivo da imagem e se deve exibir as matrizes que representam a imagem, possibilitando uma visualização matemática das operações. </p>
+  <p> Um arquivo que contém o elemento estruturante (ES) consiste basicamente de um arquivo texto. Na primeira linha, deve conter dois inteiros que indicam o número de linhas e colunas, respectivamente. Em seguida, há uma sequência de inteiros 0 ou 1, onde os números 1 dão o formato do ES. Exemplo de ES em formato de cruz com 3 linhas e 3 colunas: </p>
+```
 3 3
-
-| 1 | 0 | 1 |
-|---|---|---|
-| 0 | 0 | 0 |
-| 1 | 0 | 1 |
+0 1 0
+1 1 1
+0 1 0
+```
+  
 
 ## Desenvolvimento
 
