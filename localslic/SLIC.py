@@ -64,7 +64,7 @@ class SLIC(object):
             while x < self.width:
 
                 # Only add a new cluster center if it belongs to the image
-                if self.binaryImg[y][x] == 0: 
+                if self.binaryImg[y][x] == 0 or self.binaryImg[y][x] == True: 
                     # Add new cluster centered at (x, y)
                     l, a, b = self.colorArr[y][x]
                     cluster = Cluster(x, y, l, a, b)
@@ -136,7 +136,7 @@ class SLIC(object):
 
                         newGradient = calculateGradient(_x, _y)
 
-                        if newGradient < currGradient and self.binaryImg[_y][_x] == 0:
+                        if newGradient < currGradient and (self.binaryImg[_y][_x] == 0 or self.binaryImg[_y][_x] == True):
                             changeMade = True
 
                             _l, _a, _b = self.colorArr[_y][_x]
@@ -163,7 +163,7 @@ class SLIC(object):
 
                 for x in range(max(cluster.x - it, 0), min(cluster.x + it, self.width)):
 
-                    if self.binaryImg[y][x] == 0:
+                    if self.binaryImg[y][x] == 0 or self.binaryImg[y][x] == True:
                         l, a, b = self.colorArr[y][x]
 
                         labDistance = math.sqrt((l - cluster.l)**2 + (a - cluster.a)**2 + (b - cluster.b)**2)
@@ -213,7 +213,7 @@ class SLIC(object):
             _a = self.colorArr[_y][_x][1]
             _b = self.colorArr[_y][_x][2]
 
-            if self.binaryImg[_y][_x] == 0:            
+            if self.binaryImg[_y][_x] == 0 or self.binaryImg[_y][_x] == True:            
                 cluster.setCluster(_x, _y, _l, _a, _b)
 
     def enforceConnectivity(self):
@@ -384,7 +384,7 @@ class SLIC(object):
         self.distanceArr = np.full((self.height, self.width), np.inf)
 
         # Calculates inner binary image
-        if binaryImg == None:
+        if binaryImg is None:
             i = color.rgb2gray(image)
             global_thresh = threshold_otsu(i)
             binary_global = np.ndarray(i.shape,dtype=int)        
