@@ -1,5 +1,5 @@
 # Acompanhamento das atividades realizadas
-##### Esta página será atualizada semanalmente com as atividades realizadas no período descrito e especificando as horas gastas, além de ponteiros para conteúdos que possam comprovar a realização de tais atividades. 
+#### Esta página será atualizada semanalmente com as atividades realizadas no período descrito e especificando as horas gastas, além de ponteiros para conteúdos que possam comprovar a realização de tais atividades. 
 
 * 25/02 a 03/03
     + Reunião semanal com o grupo de pesquisa | 2h
