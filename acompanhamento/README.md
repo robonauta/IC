@@ -8,6 +8,8 @@
 * 11/03 a 17/03
     + [Confecção de apresentação do projeto para MAC0215](https://github.com/robonauta/IC/blob/master/MAC0215/%5BMAC0215%5D%20Apresenta%C3%A7%C3%A3o%20do%20projeto.pdf) | 7h 
 * 18/03 a 24/03
+    + Reunião semanal com o grupo de pesquisa | 2h
+    + Leitura do Módulo 0 - Preparation do curso CS231n | 5h 
 * 25/03 a 31/03
 * 01/04 a 07/03
 * 08/04 a 14/04
