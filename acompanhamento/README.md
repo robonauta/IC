@@ -11,6 +11,7 @@
     + Reunião semanal com o grupo de pesquisa | 2h
     + Leitura do Módulo 0 - Preparation do curso CS231n | 5h 
 * 25/03 a 31/03
+    + Vazio
 * 01/04 a 07/03
 * 08/04 a 14/04
 * 15/04 a 21/04
