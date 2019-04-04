@@ -13,6 +13,7 @@
 * 25/03 a 31/03
     + Vazio
 * 01/04 a 07/03
+     + [Leitura do Módulo 1 - Image Classification](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%201%20-%20Image%20Classification.pdf) | 3h
 * 08/04 a 14/04
 * 15/04 a 21/04
 * 22/04 a 28/04
