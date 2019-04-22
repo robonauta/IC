@@ -18,6 +18,7 @@
 * 08/04 a 14/04
      + Oficina de Convnets no Keras com a orientadora | 2h
 * 15/04 a 21/04
+    Vazio
 * 22/04 a 28/04
 * 29/04 a 05/05
 * 06/05 a 12/05
