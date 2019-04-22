@@ -16,6 +16,7 @@
      + [Leitura do Módulo 1 - Image Classification](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%201%20-%20Image%20Classification.pdf) | 3h
      + Reunião semanal com o grupo de pesquisa | 2h
 * 08/04 a 14/04
+     + Oficina de Convnets no Keras com a orientadora | 2h
 * 15/04 a 21/04
 * 22/04 a 28/04
 * 29/04 a 05/05
