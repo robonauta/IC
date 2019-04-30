@@ -27,7 +27,7 @@
     + [Leitura e resumo do Módulo 1 - Neural Networks Part 2](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%201%20-%20Neural%20Networks%20Part%202.pdf) | 1h
 * 29/04 a 05/05
     + [Leitura e resumo do Módulo 1 - Neural Networks Part 3](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%201%20-%20Neural%20Networks%20Part%203.pdf) | 2h
-    + Leitura do Módulo 1 - Putting it together | 2h
+    + Leitura do Módulo 1 - Putting it together | 0h
     + [Leitura e resumo do Módulo 2 - Convolutional Neural Networks](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%202%20-%20Convolutional%20Neural%20Networks%20.pdf) | 2h
     + [Leitura e resumo do Módulo 2 - Understanding and Visualizing Convolutional Neural Networks](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%202%20-%20Understanding%20and%20Visualizing%20Convolutional%20Neural%20Networks.pdf) | 0.5h
     + [Leitura e resumo do Módulo 2 - Transfer Learning](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%202%20-%20Transfer%20Learning.pdf) | 0.5h
