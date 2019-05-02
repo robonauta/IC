@@ -41,4 +41,7 @@
 * 17/06 a 23/06
 * 24/06 a 30/06
 
+___
+
+
 ¹ Como se trata de um tutorial, não há a viabilidade a necessidade de um resumo. 
