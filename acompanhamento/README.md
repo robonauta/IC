@@ -46,4 +46,4 @@
 ___
 
 
-¹ Como se trata de um tutorial, não há a viabilidade a necessidade de um resumo. 
+¹ Como se trata de um tutorial, não há a viabilidade de um resumo. 
