@@ -9,7 +9,7 @@
     + [Confecção de apresentação do projeto para MAC0215](https://github.com/robonauta/IC/blob/master/MAC0215/%5BMAC0215%5D%20Apresenta%C3%A7%C3%A3o%20do%20projeto.pdf) | 7h 
 * 18/03 a 24/03
     + Reunião semanal com o grupo de pesquisa | 2h
-    + Leitura do Módulo 0 - Preparation do curso CS231n | 5h 
+    + Leitura do Módulo 0 - Preparation do curso CS231n¹ | 5h 
 * 25/03 a 31/03
     + Vazio
 * 01/04 a 07/03
@@ -32,7 +32,7 @@
     + [Leitura e resumo do Módulo 2 - Understanding and Visualizing Convolutional Neural Networks](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%202%20-%20Understanding%20and%20Visualizing%20Convolutional%20Neural%20Networks.pdf) | 0.5h
     + [Leitura e resumo do Módulo 2 - Transfer Learning](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%202%20-%20Transfer%20Learning.pdf) | 0.5h
     + Leitura dos capítulos 2, 3, 4 e 5 do tutorial de Deep Learning com Keras¹ | 4h
-    + [Análise dos códigos de classificadores já desenvolvidos pelo grupo de pesquisa] (https://github.com/robonauta/IC/blob/master/MAC0215/task1.pdf) | 3h
+    + [Análise dos códigos de classificadores já desenvolvidos pelo grupo de pesquisa](https://github.com/robonauta/IC/blob/master/MAC0215/task1.pdf) | 3h
     + Reunião semanal com o grupo de pesquisa | 2h
 * 06/05 a 12/05
 * 13/05 a 19/05
