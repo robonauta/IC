@@ -18,7 +18,7 @@
 * 08/04 a 14/04
      + Oficina de Convnets no Keras com a orientadora | 2h
 * 15/04 a 21/04
-    Vazio
+    + Vazio
 * 22/04 a 28/04
     + [Leitura e resumo do Módulo 1 - Linear Classification](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%201%20-%20Linear%20classification.pdf) | 4h
     + [Leitura e resumo do Módulo 1 - Optimization](https://github.com/robonauta/IC/blob/master/MAC0215/M%C3%B3dulo%201%20-%20Optimization.pdf) | 1h
