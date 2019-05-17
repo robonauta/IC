@@ -34,7 +34,8 @@
     + Leitura dos capítulos 2, 3, 4 e 5 do tutorial de Deep Learning com Keras¹ | 4h
     + [Análise dos códigos de classificadores já desenvolvidos pelo grupo de pesquisa](https://github.com/robonauta/IC/blob/master/MAC0215/task1.pdf) | 3h
     + Reunião semanal com o grupo de pesquisa | 2h
-* 06/05 a 12/05
+* 06/05 a 12/05    
+    + Reunião semanal com o grupo de pesquisa | 2h
 * 13/05 a 19/05
 * 20/05 a 26/05
 * 27/05 a 02/06
