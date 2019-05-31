@@ -32,11 +32,10 @@ def main():
         h = slices[0].stop-slices[0].start
         w = slices[1].stop-slices[1].start
 
-        downscale_rate_h = h/9
-        downscale_rate_w = w/9
+        rescale_rate = max(h/9, w/9)
 
-        height_rescaled = downscale_rate_h*41
-        width_rescaled = downscale_rate_w*41
+        height_rescaled = rescale_rate*41
+        width_rescaled = rescale_rate*41
 
         pad_height = height_rescaled - h
         pad_width = width_rescaled - w
@@ -91,13 +90,13 @@ def main():
 
         plt.imshow(connectedComponent, cmap='gray')
         plt.title('Connected component')
-        #plt.show()        
+        # plt.show()
         plt.savefig('imgs/cc/cc'+str(i))
         plt.clf()
 
         plt.imshow(neighbourhood, cmap='gray')
         plt.title('Neighbourhood')
-        #plt.show()
+        # plt.show()
         plt.savefig('imgs/nh/nh'+str(i))
         plt.clf()
 
@@ -106,11 +105,11 @@ def main():
         plt.imshow(normalized, cmap='gray')
         plt.title('Normalized')
         plt.gca().add_patch(Rectangle((15, 15), 9, 9, linewidth=1,
-                                      edgecolor='r', facecolor='none'))        
-        #plt.show()
+                                      edgecolor='r', facecolor='none'))
+        # plt.show()
         plt.savefig('imgs/normal/normal'+str(i))
         plt.clf()
-        
+
         i += 1
 
 
