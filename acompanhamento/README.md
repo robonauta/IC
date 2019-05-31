@@ -37,6 +37,7 @@
 * 06/05 a 12/05    
     + Reunião semanal com o grupo de pesquisa | 2h
 * 13/05 a 19/05
+    + [Programação de programa que extrai patches das imagens](https://github.com/robonauta/IC/blob/master/Patch%20extraction/extractor.py) | 10h
 * 20/05 a 26/05
 * 27/05 a 02/06
 * 03/06 a 09/06
