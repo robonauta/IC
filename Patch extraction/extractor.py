@@ -4,20 +4,23 @@ import numpy as np
 import math
 
 from skimage import measure
-from skimage.color import rgb2gray, label2rgb, rgb2lab, lab2rgb
+from skimage.color import rgb2gray, label2rgb
 from skimage.filters import threshold_otsu
 from skimage.measure import regionprops
-from skimage.util import img_as_float, img_as_uint
+from skimage.util import img_as_float, img_as_uint, img_as_float32
 from skimage.io import imread, imshow
 from skimage.transform import resize
-from scipy import stats
+
+from scipy import misc
 
 import cv2
 
 
 def tidy(x, y):
-    img = cv2.imread(x, 0)
-    img = img.astype(np.uint8)
+    imgRGB = cv2.imread(x)
+    imgRGB = imgRGB.astype(np.uint8)
+    img = rgb2gray(imgRGB)
+    img = img_as_uint(img)
     label = cv2.imread(y, 0)
     label = label.astype(np.uint8)
 
@@ -84,20 +87,20 @@ def tidy(x, y):
             window = (slice(x1, y1), slice(x2, y2))
 
             connectedComponent = img[p['slice']]
-            neighbourhood = img[window]
+            neighbourhood = imgRGB[window]
 
             if top_fill != 0:
                 neighbourhood = np.append(
-                    np.zeros((top_fill, neighbourhood.shape[1]), dtype=int), neighbourhood, axis=0)
+                    np.zeros((top_fill, neighbourhood.shape[1], 3), dtype=int), neighbourhood, axis=0)
             if bottom_fill != 0:
                 neighbourhood = np.append(neighbourhood, np.zeros(
-                    (bottom_fill, neighbourhood.shape[1]), dtype=int), axis=0)
+                    (bottom_fill, neighbourhood.shape[1], 3), dtype=int), axis=0)
             if left_fill != 0:
                 neighbourhood = np.append(
-                    np.zeros((neighbourhood.shape[0], left_fill), dtype=int), neighbourhood, axis=1)
+                    np.zeros((neighbourhood.shape[0], left_fill, 3), dtype=int), neighbourhood, axis=1)
             if right_fill != 0:
                 neighbourhood = np.append(neighbourhood, np.zeros(
-                    (neighbourhood.shape[0], right_fill), dtype=int), axis=1)
+                    (neighbourhood.shape[0], right_fill, 3), dtype=int), axis=1)
 
             plt.imshow(connectedComponent, cmap='gray')
             plt.title('Connected component')
@@ -107,21 +110,30 @@ def tidy(x, y):
 
             plt.imshow(neighbourhood, cmap='gray')
             plt.title('Neighbourhood')
-            # plt.show()
+            plt.show()
             plt.savefig('imgs/nh/nh'+str(i))
             plt.clf()
 
-            normalized = resize(neighbourhood, (41, 41), anti_aliasing=True)
+            print(neighbourhood.shape)
+            normalized = misc.imresize(neighbourhood, (41, 41))
+            # normalized = resize(neighbourhood, (41, 41), anti_aliasing=True)
             features.append(normalized)
-
-            plt.imshow(normalized, cmap='gray')
+            plt.imshow(normalized, cmap = 'gray')
             plt.title('Normalized')
             # plt.gca().add_patch(Rectangle((15, 15), 9, 9, linewidth=1,
             #                            edgecolor='r', facecolor='none'))
-            # plt.show()
+            plt.show()
             plt.savefig('imgs/normal/normal'+str(i))
             plt.clf()
 
             i += 1
 
-    return features, labels    
+    return features, labels
+
+
+def main():
+    tidy('00000085.tif', '00000085_label.png')
+
+
+if __name__ == "__main__":
+    main()
