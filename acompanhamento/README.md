@@ -42,6 +42,8 @@
     + [Ajustes no algoritmo que extrai patches](https://github.com/robonauta/IC/blob/master/MAC0215/task2.pdf) | 2h    
     + Reunião semanal com o grupo de pesquisa | 2h
 * 27/05 a 02/06
+    + [Transformação do "patch extractor" para um organizador de dataset (que devolve dados no formato (features, labels))](https://github.com/robonauta/IC/commit/6452fec2a5630d9c428da75acdd9c44d4084449d) | 5h
+    + [Correção para que os patches da imagem (features) sejam RGB](https://github.com/robonauta/IC/commit/497a2835b9463330238ad5e0dc3c4a1620e36ada) | 3h 
 * 03/06 a 09/06
 * 10/06 a 16/06
 * 17/06 a 23/06
