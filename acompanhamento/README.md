@@ -48,7 +48,7 @@
     + Reunião semanal com o grupo de pesquisa | 2h
     + [Construção de uma rede neural convolucional para treinamento a nível de componentes conexos](https://github.com/robonauta/IC/commit/bfdae8a0b73cdf603395634988c07b9b09978a85) | 10h
     + [Construção de um "patch extractor" para cada píxel da imagem²](https://github.com/robonauta/IC/commit/12815bdd466c4f7285dc69d22ce0d61e301a7b6f) |17h    
-    + [Construção de uma rede neural convolucional para treinamento a nível de pixels] (https://github.com/robonauta/IC/commit/7afb426a7006bb6d588bf1cd9686197878e73c83)| 2h
+    + [Construção de uma rede neural convolucional para treinamento a nível de pixels] (https://github.com/robonauta/IC/commit/7afb426a7006bb6d588bf1cd9686197878e73c83) | 2h
 * 10/06 a 16/06
 * 17/06 a 23/06
 * 24/06 a 30/06
