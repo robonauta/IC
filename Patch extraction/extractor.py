@@ -145,7 +145,6 @@ def tidy_pixels(x, y):
     imgRGB = cv2.imread(x)
     label = cv2.imread(y, 0)
 
-    #features = np.zeros((0, 41, 41, 3), dtype=np.uint8)
     features = []
     labels = []
 
@@ -156,7 +155,6 @@ def tidy_pixels(x, y):
                 labels.append(label_value)
             else:
                 labels.append(0)
-            #print('x: '+str(x)+' y: '+str(y))
             top_fill = 0
             bottom_fill = 0
             left_fill = 0
@@ -186,8 +184,6 @@ def tidy_pixels(x, y):
 
             window = (slice(x1, y1), slice(x2, y2))
             neighbourhood = imgRGB[window]
-            # print(window)
-            #print('t: '+str(top_fill)+ ' b: '+str(bottom_fill)+' l: '+str(left_fill)+' r: '+str(right_fill))
 
             if top_fill != 0:
                 neighbourhood = np.append(
@@ -211,12 +207,7 @@ def tidy_pixels(x, y):
             #plt.savefig('imgs/nh/nh'+str(i))
             plt.clf()
             '''
-            # print(neighbourhood.shape)
             features.append(neighbourhood)
-            #neighbourhood = neighbourhood.reshape((1, 41, 41, 3))
-            # features = np.append(
-            #    features, neighbourhood, axis=0)
-            # print(features.shape)
     return np.array(features), np.array(labels)
 
 
