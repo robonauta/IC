@@ -14,7 +14,7 @@ from skimage.transform import resize
 import cv2
 
 
-def tidy(x, y):
+def tidy_cc(x, y):
     imgRGB = cv2.imread(x)
     img = rgb2gray(imgRGB)
     img = img_as_uint(img)
@@ -84,7 +84,7 @@ def tidy(x, y):
             else:
                 right_fill = abs(
                     img.shape[1] - (slices[1].stop + math.ceil(pad_width/2.0)))
-                y2 = img.shape[0] - 1
+                y2 = img.shape[1] - 1
 
             window = (slice(x1, y1), slice(x2, y2))
 
@@ -141,11 +141,88 @@ def tidy(x, y):
     return np.array(features), np.array(labels)
 
 
+def tidy_pixels(x, y):
+    imgRGB = cv2.imread(x)
+    label = cv2.imread(y, 0)
+
+    #features = np.zeros((0, 41, 41, 3), dtype=np.uint8)
+    features = []
+    labels = []
+
+    for x in range(np.shape(imgRGB)[0]):
+        for y in range(np.shape(imgRGB)[1]):
+            label_value = label[x][y]
+            if label_value == 1:
+                labels.append(label_value)
+            else:
+                labels.append(0)
+            #print('x: '+str(x)+' y: '+str(y))
+            top_fill = 0
+            bottom_fill = 0
+            left_fill = 0
+            right_fill = 0
+
+            if x - 20 >= 0:
+                x1 = x - 20
+            else:
+                top_fill = abs(x - 20)
+                x1 = 0
+            if x + 21 < imgRGB.shape[0]:
+                y1 = x + 21
+            else:
+                bottom_fill = abs(imgRGB.shape[0] - (x + 21))
+                y1 = imgRGB.shape[0]
+
+            if y - 20 >= 0:
+                x2 = y - 20
+            else:
+                left_fill = abs(y - 20)
+                x2 = 0
+            if y + 21 < imgRGB.shape[1]:
+                y2 = y + 21
+            else:
+                right_fill = abs(imgRGB.shape[1] - (y + 21))
+                y2 = imgRGB.shape[1]
+
+            window = (slice(x1, y1), slice(x2, y2))
+            neighbourhood = imgRGB[window]
+            # print(window)
+            #print('t: '+str(top_fill)+ ' b: '+str(bottom_fill)+' l: '+str(left_fill)+' r: '+str(right_fill))
+
+            if top_fill != 0:
+                neighbourhood = np.append(
+                    np.zeros((top_fill, neighbourhood.shape[1], 3), dtype=np.uint8), neighbourhood, axis=0)
+            if bottom_fill != 0:
+                neighbourhood = np.append(neighbourhood, np.zeros(
+                    (bottom_fill, neighbourhood.shape[1], 3), dtype=np.uint8), axis=0)
+            if left_fill != 0:
+                neighbourhood = np.append(
+                    np.zeros((neighbourhood.shape[0], left_fill, 3), dtype=np.uint8), neighbourhood, axis=1)
+            if right_fill != 0:
+                neighbourhood = np.append(neighbourhood, np.zeros(
+                    (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
+
+            # DEBUG
+            '''
+            print(neighbourhood.shape)
+            plt.imshow(neighbourhood)
+            plt.title('Neighbourhood')
+            plt.show()
+            #plt.savefig('imgs/nh/nh'+str(i))
+            plt.clf()
+            '''
+            # print(neighbourhood.shape)
+            features.append(neighbourhood)
+            #neighbourhood = neighbourhood.reshape((1, 41, 41, 3))
+            # features = np.append(
+            #    features, neighbourhood, axis=0)
+            # print(features.shape)
+    return np.array(features), np.array(labels)
+
+
 def main():
-    f, l = tidy('00000085.jpg', '00000085_label.png')
-    f = np.array(f)
+    f, l = tidy_pixels('00000085.jpg', '00000085_label.png')
     print(f.shape)
-    print(f.dtype)
 
 
 if __name__ == "__main__":
