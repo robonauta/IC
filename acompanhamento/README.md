@@ -45,6 +45,9 @@
     + [Transformação do "patch extractor" para um organizador de dataset (que devolve dados no formato (features, labels))](https://github.com/robonauta/IC/commit/6452fec2a5630d9c428da75acdd9c44d4084449d) | 5h
     + [Correção para que os patches da imagem (features) sejam RGB](https://github.com/robonauta/IC/commit/497a2835b9463330238ad5e0dc3c4a1620e36ada) | 3h 
 * 03/06 a 09/06
+    + Reunião semanal com o grupo de pesquisa | 2h
+    + Construção de uma rede neural convolucional para treinamento a nível de componentes conexos | 10h
+    + Construção de um "patch extractor" para cada píxel da imagem² |15h
 * 10/06 a 16/06
 * 17/06 a 23/06
 * 24/06 a 30/06
@@ -53,3 +56,4 @@ ___
 
 
 ¹ Como se trata de um tutorial, não há a viabilidade de um resumo. 
+² Ainda com o problema de não trabalhar com imagens grandes devido a quantidade de pixels (> 7 mi), ocasionando em erro de memória. 
