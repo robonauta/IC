@@ -51,7 +51,7 @@
     + [Construção de uma rede neural convolucional para treinamento a nível de pixels](https://github.com/robonauta/IC/commit/7afb426a7006bb6d588bf1cd9686197878e73c83) | 2h
 * 10/06 a 16/06
      + [Construção de um "patch extractor" para cada superpíxel da imagem²](https://github.com/robonauta/IC/commit/1506514fbe87587bbc88fae32d6b18f3c8dd33c4) | 5h  
-     + [Construção de uma rede neural convolucional para treinamento a nível de superpixels](hhttps://github.com/robonauta/IC/commit/98dce44f4fa485a7b41956894ce7804a84ca021c) | 2h
+     + [Construção de uma rede neural convolucional para treinamento a nível de superpixels](https://github.com/robonauta/IC/commit/98dce44f4fa485a7b41956894ce7804a84ca021c) | 2h
 * 17/06 a 23/06
 * 24/06 a 30/06
 
