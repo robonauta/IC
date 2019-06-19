@@ -64,7 +64,7 @@ class SLIC(object):
             while x < self.width:
 
                 # Only add a new cluster center if it belongs to the image
-                if self.binaryImg[y][x] == 0: 
+                if self.binaryImg[y][x] == 1: 
                     # Add new cluster centered at (x, y)
                     l, a, b = self.colorArr[y][x]
                     cluster = Cluster(x, y, l, a, b)
@@ -163,7 +163,7 @@ class SLIC(object):
 
                 for x in range(max(cluster.x - it, 0), min(cluster.x + it, self.width)):
 
-                    if self.binaryImg[y][x] == 0:
+                    if self.binaryImg[y][x] == 1:
                         l, a, b = self.colorArr[y][x]
 
                         labDistance = math.sqrt((l - cluster.l)**2 + (a - cluster.a)**2 + (b - cluster.b)**2)
@@ -339,12 +339,12 @@ class SLIC(object):
 
         for i in range(iterations):
 
-            start = timeit.default_timer()
+            #start = timeit.default_timer()
             self.labelPixels(labWeight)
             self.updateCenters()
             #self.enforceConnectivity()
-            stop = timeit.default_timer()
-            print("Runtime: ", stop - start)
+            #stop = timeit.default_timer()
+            #print("Runtime: ", stop - start)
         return self.labelImage()
 
     def __init__(self, image, binaryImg = None, K = 10000, M = 10):
