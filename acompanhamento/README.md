@@ -61,4 +61,5 @@ ___
 
 
 ¹ Como se trata de um tutorial, não há a viabilidade de um resumo. 
+
 ² Ainda com o problema de não trabalhar com imagens grandes devido a quantidade de pixels (> 7 mi), ocasionando em erro de memória. 
