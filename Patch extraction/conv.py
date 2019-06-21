@@ -5,6 +5,7 @@ from extractor import tidy_cc, tidy_pixels, tidy_superpixels
 from tensorflow.keras import layers
 from tensorflow.keras import models
 from tensorflow.keras.utils import to_categorical
+import time
 
 
 def conv_cc():
@@ -47,6 +48,7 @@ def conv_cc():
         raise Exception(
             'Number of feature and label images differ at the test set')
 
+    start_t = time.time()
     for i in range(len(images_train)):
         f, l = tidy_cc(images_train[i], labels_images_train[i])
         train_cc = np.append(train_cc, f, axis=0)
@@ -56,6 +58,10 @@ def conv_cc():
         f, l = tidy_cc(images_test[l], labels_images_test[l])
         test_cc = np.append(test_cc, f, axis=0)
         test_labels = np.append(test_labels, l, axis=0)
+    end_t = time.time()
+
+    print("Elapsed time to extract features: " + str(end_t-start_t) + 's')
+    print('Number of features in the training set: ' + str(train_cc.shape[0]))
 
     '''
     (train_images, train_labels) = tidy('00000085.jpg', '00000085_label.png')
@@ -75,7 +81,20 @@ def conv_cc():
 
     test_loss, test_acc = model.evaluate(test_cc, test_labels)
 
-    print(test_acc)
+    y_true = test_labels
+    y_pred = np.rint(np.squeeze(model.predict(test_cc))).astype('uint8')
+
+    tp = np.sum((y_true == 1)*(y_pred == 1))
+    tn = np.sum((y_true == 0)*(y_pred == 0))
+    fp = np.sum((y_true == 0)*(y_pred == 1))
+    fn = np.sum((y_true == 1)*(y_pred == 0))
+
+    acc = (tp+tn)/float(tp+tn+fp+fn)
+    precision = tp/float(tp+fp)
+    recall = tp/float(tp+fn)
+    print('Accuracy: '+str(acc))
+    print('Precision: '+str(precision))
+    print('Recall: '+str(recall))
 
 
 def conv_pixels():
@@ -118,7 +137,9 @@ def conv_pixels():
         raise Exception(
             'Number of feature and label images differ at the test set')
 
+    start_t = time.time()
     for i in range(len(images_train)):
+        print(images_train[i])
         f, l = tidy_pixels(images_train[i], labels_images_train[i], w_size=21)
         train_pixels = np.append(train_pixels, f, axis=0)
         train_labels = np.append(train_labels, l, axis=0)
@@ -127,6 +148,18 @@ def conv_pixels():
         f, l = tidy_pixels(images_test[l], labels_images_test[l], w_size=21)
         test_pixels = np.append(test_pixels, f, axis=0)
         test_labels = np.append(test_labels, l, axis=0)
+    end_t = time.time()
+
+    print("Elapsed time to extract features: " + str(end_t-start_t) + 's')
+    print('Number of features in the training set: ' +
+          str(train_pixels.shape[0]))
+
+    print("Distribution of classes in the training set: ")
+    print('0: ' + str((train_labels == 0).sum()))
+    print('1: ' + str((train_labels == 1).sum()))
+    print("Distribution of classes in the test set: ")
+    print('0: ' + str((test_labels == 0).sum()))
+    print('1: ' + str((test_labels == 1).sum()))
 
     '''
     (train_images, train_labels) = tidy('00000085.jpg', '00000085_label.png')
@@ -141,9 +174,23 @@ def conv_pixels():
                   metrics=['accuracy'])
     model.fit(train_pixels, train_labels, epochs=20, batch_size=64)
 
-    test_loss, test_acc = model.evaluate(test_pixels, test_labels)
+    #test_loss, test_acc = model.evaluate(test_pixels, test_labels)
 
-    print(test_acc)
+    y_true = test_labels
+    y_pred = np.rint(np.squeeze(model.predict(test_pixels))).astype('uint8')
+
+    tp = np.sum((y_true == 1)*(y_pred == 1))
+    tn = np.sum((y_true == 0)*(y_pred == 0))
+    fp = np.sum((y_true == 0)*(y_pred == 1))
+    fn = np.sum((y_true == 1)*(y_pred == 0))
+
+    acc = (tp+tn)/float(tp+tn+fp+fn)
+    precision = tp/float(tp+fp)
+    recall = tp/float(tp+fn)
+    print('Accuracy: '+str(acc))
+    print('Precision: '+str(precision))
+    print('Recall: '+str(recall))
+
 
 def conv_superpixels():
     model = models.Sequential()
@@ -185,6 +232,7 @@ def conv_superpixels():
         raise Exception(
             'Number of feature and label images differ at the test set')
 
+    start_t = time.time()
     for i in range(len(images_train)):
         f, l = tidy_superpixels(images_train[i], labels_images_train[i])
         train_superpixels = np.append(train_superpixels, f, axis=0)
@@ -194,6 +242,18 @@ def conv_superpixels():
         f, l = tidy_superpixels(images_test[l], labels_images_test[l])
         test_superpixels = np.append(test_superpixels, f, axis=0)
         test_labels = np.append(test_labels, l, axis=0)
+    end_t = time.time()
+
+    print("Elapsed time to extract features: " + str(end_t-start_t) + 's')
+    print('Number of features in the training set: ' +
+          str(train_superpixels.shape))
+
+    print("Distribution of classes in the training set: ")
+    print('0: ' + str((train_labels == 0).sum()))
+    print('1: ' + str((train_labels == 1).sum()))
+    print("Distribution of classes in the test set: ")
+    print('0: ' + str((test_labels == 0).sum()))
+    print('1: ' + str((test_labels == 1).sum()))
 
     '''
     (train_images, train_labels) = tidy('00000085.jpg', '00000085_label.png')
@@ -211,7 +271,20 @@ def conv_superpixels():
                   metrics=['accuracy'])
     model.fit(train_superpixels, train_labels, epochs=20, batch_size=64)
 
-    test_loss, test_acc = model.evaluate(test_superpixels, test_labels)
+    #test_loss, test_acc = model.evaluate(test_superpixels, test_labels)
 
-    print(test_acc)
+    y_true = test_labels
+    y_pred = np.rint(np.squeeze(model.predict(
+        test_superpixels))).astype('uint8')
 
+    tp = np.sum((y_true == 1)*(y_pred == 1))
+    tn = np.sum((y_true == 0)*(y_pred == 0))
+    fp = np.sum((y_true == 0)*(y_pred == 1))
+    fn = np.sum((y_true == 1)*(y_pred == 0))
+
+    acc = (tp+tn)/float(tp+tn+fp+fn)
+    precision = tp/float(tp+fp)
+    recall = tp/float(tp+fn)
+    print('Accuracy: '+str(acc))
+    print('Precision: '+str(precision))
+    print('Recall: '+str(recall))
