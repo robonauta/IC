@@ -19,12 +19,13 @@ from localslic import SLIC
 area_mr_thresh = 10
 area_cc = 500
 
+
 def tidy_cc(x, y):
     imgRGB = cv2.imread(x)
     img = rgb2gray(imgRGB)
     img = img_as_uint(img)
     label = cv2.imread(y, 0)
-
+ 
     features = []
     labels = []
 
@@ -34,11 +35,7 @@ def tidy_cc(x, y):
     label_image = measure.label(binary_global, neighbors=8, background=0)
 
     properties = regionprops(label_image, intensity_image=binary_global)
-
-    # DEBUG
-    '''
-    i = 0
-    '''
+ 
     for p in properties:
         if p['area'] > area_mr_thresh:
             slices = p['slice']
@@ -62,7 +59,7 @@ def tidy_cc(x, y):
                 labels.append(label_value)
             else:
                 labels.append(0)
-            # print(labels[-1])
+            
             top_fill = 0
             bottom_fill = 0
             left_fill = 0
@@ -95,11 +92,6 @@ def tidy_cc(x, y):
 
             window = (slice(x1, y1), slice(x2, y2))
 
-            # DEBUG
-            '''
-            connectedComponent = img[p['slice']]
-            '''
-
             neighbourhood = imgRGB[window]
 
             if top_fill != 0:
@@ -115,36 +107,10 @@ def tidy_cc(x, y):
                 neighbourhood = np.append(neighbourhood, np.zeros(
                     (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
 
-            # DEBUG
-            '''
-            plt.imshow(connectedComponent, cmap='gray')
-            plt.title('Connected component')
-            plt.show()
-            plt.savefig('imgs/cc/cc'+str(i))
-            plt.clf()
-
-            plt.imshow(neighbourhood, cmap='gray')
-            plt.title('Neighbourhood')
-            plt.show()
-            plt.savefig('imgs/nh/nh'+str(i))
-            plt.clf()
-            '''
-
             normalized = cv2.resize(neighbourhood, dsize=(
                 41, 41), interpolation=cv2.INTER_CUBIC)
             features.append(normalized)
 
-            # DEBUG
-            '''
-            plt.imshow(normalized, cmap = 'gray')
-            plt.title('Normalized')
-            plt.gca().add_patch(Rectangle((15, 15), 9, 9, linewidth=1,
-                                        edgecolor='r', facecolor='none'))
-            plt.show()
-            plt.savefig('imgs/normal/normal'+str(i))
-            plt.clf()
-            i += 1
-            '''
     return np.array(features), np.array(labels)
 
 
@@ -193,9 +159,6 @@ def tidy_pixels(x, y, w_size=41):
 
             window = (slice(x1, y1), slice(x2, y2))
             neighbourhood = imgRGB[window]
-            # print('t: '+str(top_fill)+' b: '+str(bottom_fill) +
-            #      ' l: '+str(left_fill)+' r: '+str(right_fill))
-            # print(window)
 
             if top_fill != 0:
                 neighbourhood = np.append(
@@ -210,15 +173,6 @@ def tidy_pixels(x, y, w_size=41):
                 neighbourhood = np.append(neighbourhood, np.zeros(
                     (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
 
-            # DEBUG
-            '''
-            print(neighbourhood.shape)
-            plt.imshow(neighbourhood)
-            plt.title('Neighbourhood')
-            plt.show()
-            # plt.savefig('imgs/nh/nh'+str(i))
-            plt.clf()
-            '''
             features[i] = neighbourhood
             i += 1
     return features, labels
@@ -243,7 +197,7 @@ def tidy_superpixels(x, y):
     seg_prop = 0.011
 
     properties = regionprops(label_image, intensity_image=binary_global)
-    
+
     for region in properties:
         if region['convex_area'] > area_mr_thresh:
             segments = math.ceil(region['convex_area'] * seg_prop)
@@ -258,37 +212,15 @@ def tidy_superpixels(x, y):
             '''
             img_x = slices[0].start
             img_y = slices[1].start
-            # processor = SLIC(
-            #    image=imgRGB[slices], binaryImg=region['image'],  K=segments, M=compactness)
+            
             segments_slic = slic(image=imgRGB[slices], n_segments=segments)
-            #segments_slic = processor.execute(iterations=3, labWeight=0.2)
-            '''
-            plt.imshow(label2rgb(segments_slic))
-            plt.title('local labels')
-            plt.show()
-            '''
 
             for i in range(segments_slic.shape[0]):
                 for j in range(segments_slic.shape[1]):
                     if(region['image'][i][j]):
                         label_image[img_x + i][img_y +
                                                j] = int(segments_slic[i][j]) + n
-
-            # label_image[slices] = [[value + n + 1 if region['image'][x][y] else label_image[x+img_x][y+img_y]
-            #                        for y, value in enumerate(row)] for x, row in enumerate(segments_slic)]
-
-            '''
-            plt.imshow(label2rgb(label_image))
-            plt.title('Label')
-            plt.show()'''
             n += segments
-
-    # DEBUG
-    '''
-    plt.imshow(label2rgb(label=label_image, image=binary_global))
-    plt.title('Label')
-    plt.show()
-    '''
 
     properties = regionprops(label_image, intensity_image=binary_global)
     for p in properties:
@@ -347,9 +279,6 @@ def tidy_superpixels(x, y):
 
             window = (slice(x1, y1), slice(x2, y2))
 
-            # DEBUG
-            #connectedComponent = img[p['slice']]
-
             neighbourhood = imgRGB[window]
 
             if top_fill != 0:
@@ -365,35 +294,9 @@ def tidy_superpixels(x, y):
                 neighbourhood = np.append(neighbourhood, np.zeros(
                     (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
 
-            # DEBUG
-            '''
-            plt.imshow(connectedComponent, cmap='gray')
-            plt.title('Connected component')
-            plt.show()
-            #plt.savefig('imgs/cc/cc'+str(i))
-            plt.clf()
-            
-            plt.imshow(neighbourhood, cmap='gray')
-            plt.title('Neighbourhood')
-            plt.show()
-            #plt.savefig('imgs/nh/nh'+str(i))
-            plt.clf()
-            '''
-
             normalized = cv2.resize(neighbourhood, dsize=(
                 41, 41), interpolation=cv2.INTER_CUBIC)
             features.append(normalized)
-
-            # DEBUG
-            '''
-            plt.imshow(normalized, cmap = 'gray')
-            plt.title('Normalized')
-            #plt.gca().add_patch(Rectangle((15, 15), 9, 9, linewidth=1,
-            #                            edgecolor='r', facecolor='none'))
-            plt.show()
-            #plt.savefig('imgs/normal/normal'+str(i))
-            plt.clf()
-            '''
 
     return np.array(features), np.array(labels)
 
