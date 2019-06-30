@@ -53,10 +53,13 @@
      + [Construção de um "patch extractor" para cada superpíxel da imagem²](https://github.com/robonauta/IC/commit/1506514fbe87587bbc88fae32d6b18f3c8dd33c4) | 5h  
      + [Construção de uma rede neural convolucional para treinamento a nível de superpixels](https://github.com/robonauta/IC/commit/98dce44f4fa485a7b41956894ce7804a84ca021c) | 2h
 * 17/06 a 23/06
+     + [Definição e cálculo das métricas de desempenhos das ConvNets para cada granularidade](https://github.com/robonauta/IC/commit/2d437eb6a6dcb13888098301a24b96c024a83a68) | 7h
+     + [Elaboração do pôster](https://github.com/robonauta/IC/blob/master/MAC0215/%5BMAC0215%5D%20P%C3%B4ster%20.pdf) | 8h
 * 24/06 a 30/06
 
 ___
 
 
 ¹ Como se trata de um tutorial, não há a viabilidade de um resumo. 
+
 ² Ainda com o problema de não trabalhar com imagens grandes devido a quantidade de pixels (> 7 mi), ocasionando em erro de memória. 
