@@ -56,7 +56,7 @@
      + [Definição e cálculo das métricas de desempenhos das ConvNets para cada granularidade](https://github.com/robonauta/IC/commit/2d437eb6a6dcb13888098301a24b96c024a83a68) | 7h
      + [Elaboração do pôster](https://github.com/robonauta/IC/blob/master/MAC0215/%5BMAC0215%5D%20P%C3%B4ster%20.pdf) | 8h
 * 24/06 a 30/06
-
+     + [Elaboração do relatório final](https://github.com/robonauta/IC/blob/master/MAC0215/%5BMAC0215%5D%20Relatório%20Final.pdf) | 15h
 ___
 
 
