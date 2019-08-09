@@ -14,18 +14,20 @@ from skimage.segmentation import slic
 
 import cv2
 
+import random
+
 from localslic import SLIC
 
 area_mr_thresh = 10
 area_cc = 500
 
 
-def tidy_cc(x, y):
+def tidy_cc(x, y, w_size=41):
     imgRGB = cv2.imread(x)
     img = rgb2gray(imgRGB)
     img = img_as_uint(img)
     label = cv2.imread(y, 0)
- 
+
     features = []
     labels = []
 
@@ -35,7 +37,7 @@ def tidy_cc(x, y):
     label_image = measure.label(binary_global, neighbors=8, background=0)
 
     properties = regionprops(label_image, intensity_image=binary_global)
- 
+
     for p in properties:
         if p['area'] > area_mr_thresh:
             slices = p['slice']
@@ -44,12 +46,13 @@ def tidy_cc(x, y):
 
             rescale_rate = max(h/9, w/9)
 
-            height_rescaled = rescale_rate*41
-            width_rescaled = rescale_rate*41
+            height_rescaled = rescale_rate*w_size
+            width_rescaled = rescale_rate*w_size
 
             pad_height = height_rescaled - h
             pad_width = width_rescaled - w
 
+            # Counts the most frequent label over the connected component
             mask = p['image'].flat
             accountant_indexes = np.where(mask == True)
             counts = np.bincount(label[slices].flat[accountant_indexes[0]])
@@ -59,7 +62,7 @@ def tidy_cc(x, y):
                 labels.append(label_value)
             else:
                 labels.append(0)
-            
+
             top_fill = 0
             bottom_fill = 0
             left_fill = 0
@@ -108,23 +111,32 @@ def tidy_cc(x, y):
                     (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
 
             normalized = cv2.resize(neighbourhood, dsize=(
-                41, 41), interpolation=cv2.INTER_CUBIC)
+                w_size, w_size), interpolation=cv2.INTER_CUBIC)
             features.append(normalized)
 
     return np.array(features), np.array(labels)
-
 
 def tidy_pixels(x, y, w_size=41):
     imgRGB = cv2.imread(x)
     label = cv2.imread(y, 0)
 
+    img = rgb2gray(imgRGB)
+    img = img_as_uint(img)
+    global_thresh = threshold_otsu(img)
+    binary_global = img < global_thresh
+
+    pixels_number = int(np.rint((imgRGB.shape[0]*imgRGB.shape[1])*0.0004))
+
     features = np.zeros(
-        (imgRGB.shape[0]*imgRGB.shape[1], w_size, w_size, 3), dtype=np.uint8)
-    labels = np.zeros((imgRGB.shape[0]*imgRGB.shape[1]), dtype=np.uint8)
+        (pixels_number, w_size, w_size, 3), dtype=np.uint8)
+    labels = np.zeros(pixels_number, dtype=np.uint8)
 
     i = 0
-    for x in range(np.shape(imgRGB)[0]):
-        for y in range(np.shape(imgRGB)[1]):
+    while(i < pixels_number):
+        x = random.randrange(0, np.shape(imgRGB)[0], 1)
+        y = random.randrange(0, np.shape(imgRGB)[1], 1)
+
+        if binary_global[x][y] == True:
             label_value = label[x][y]
             if label_value == 1:
                 labels[i] = 1
@@ -172,13 +184,14 @@ def tidy_pixels(x, y, w_size=41):
             if right_fill != 0:
                 neighbourhood = np.append(neighbourhood, np.zeros(
                     (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
-
             features[i] = neighbourhood
-            i += 1
+        else:
+            i -= 1
+
+        i += 1
     return features, labels
 
-
-def tidy_superpixels(x, y):
+def tidy_superpixels(x, y, w_size=41):
     imgRGB = cv2.imread(x)
     img = rgb2gray(imgRGB)
     img = img_as_uint(img)
@@ -205,14 +218,9 @@ def tidy_superpixels(x, y):
 
             slices = region['slice']
 
-            '''
-            plt.imshow(region['image'], cmap='gray')
-            plt.title('segment')
-            plt.show()
-            '''
             img_x = slices[0].start
             img_y = slices[1].start
-            
+
             segments_slic = slic(image=imgRGB[slices], n_segments=segments)
 
             for i in range(segments_slic.shape[0]):
@@ -231,8 +239,8 @@ def tidy_superpixels(x, y):
 
             rescale_rate = max(h/9, w/9)
 
-            height_rescaled = rescale_rate*41
-            width_rescaled = rescale_rate*41
+            height_rescaled = rescale_rate*w_size
+            width_rescaled = rescale_rate*w_size
 
             pad_height = height_rescaled - h
             pad_width = width_rescaled - w
@@ -295,11 +303,10 @@ def tidy_superpixels(x, y):
                     (neighbourhood.shape[0], right_fill, 3), dtype=np.uint8), axis=1)
 
             normalized = cv2.resize(neighbourhood, dsize=(
-                41, 41), interpolation=cv2.INTER_CUBIC)
+                w_size, w_size), interpolation=cv2.INTER_CUBIC)
             features.append(normalized)
 
     return np.array(features), np.array(labels)
-
 
 def main():
     f, l = tidy_cc('00000085.jpg', '00000085_label.png')
