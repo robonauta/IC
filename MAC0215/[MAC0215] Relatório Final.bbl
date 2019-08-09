@@ -1,0 +1,64 @@
+\begin{thebibliography}{}
+
+\bibitem[Abu-Mostafa et~al., 2012]{Yaser:2012}
+Abu-Mostafa, Y.~S., Lin, H.-T., and Magdon-Ismail, M. (2012).
+\newblock {\em Learning From Data}.
+\newblock AMLBook.
+
+\bibitem[Achanta et~al., 2012]{Achanta:2012}
+Achanta, R., Shaji, A., Smith, K., Lucchi, A., Fua, P., and Susstrunk, S.
+  (2012).
+\newblock Slic superpixels compared to state-of-the-art superpixel methods.
+\newblock {\em IEEE Trans. Pattern Anal. Mach. Intell.}, 34(11):2274--2282.
+
+\bibitem[{Andrej Karpathy}, 2019]{stanford:cnn}
+{Andrej Karpathy} (2019).
+\newblock Convolutional neural networks for visual recognition - course notes.
+\newblock \url{http://cs231n.github.io/}.
+\newblock [Online; acessado em 29 de junho de 2019].
+
+\bibitem[Gonzalez and Woods, 2002]{GonzWood:02}
+Gonzalez, R.~C. and Woods, R.~E. (2002).
+\newblock {\em Digital Image Processing}.
+\newblock Addison-Wesley Publishing Company, second edition.
+
+\bibitem[Julca-Aguilar et~al., 2017]{2017:Sib}
+Julca-Aguilar, F.~D., Maia, A. L.~M., and Hirata, N. S.~T. (2017).
+\newblock Text/non-text classification of connected components in document
+  images.
+\newblock In {\em 30th Conference on Graphics, Patterns and Images (SIBGRAPI)},
+  pages 450--455.
+
+\bibitem[Montagner et~al., 2016]{2016:tutorialSIB}
+Montagner, I.~S., Hirata, N. S.~T., and {Hirata Jr.}, R. (2016).
+\newblock Image operator learning and applications.
+\newblock In {\em Conference on Graphics, Patterns and Images Tutorials
+  (SIBGRAPI-T)}, pages 38--50.
+
+\bibitem[Soille, 2003]{Soille:2003}
+Soille, P. (2003).
+\newblock {\em Morphological Image Analysis}.
+\newblock Springer-Verlag, Berlin, 2nd edition.
+
+\bibitem[{Wikipedia contributors}, 2019a]{wiki:acc}
+{Wikipedia contributors} (2019a).
+\newblock Accuracy and precision --- {Wikipedia}{,} the free encyclopedia.
+\newblock
+  \url{https://en.wikipedia.org/w/index.php?title=Accuracy_and_precision&oldid=903429731}.
+\newblock [Online; acessado em 29 de junho de 2019].
+
+\bibitem[{Wikipedia contributors}, 2019b]{wiki:confusion}
+{Wikipedia contributors} (2019b).
+\newblock Confusion matrix --- {Wikipedia}{,} the free encyclopedia.
+\newblock
+  \url{https://en.wikipedia.org/w/index.php?title=Confusion_matrix&oldid=903456530}.
+\newblock [Online; acessado em 29 de junho de 2019].
+
+\bibitem[{Wikipedia contributors}, 2019c]{wiki:pre}
+{Wikipedia contributors} (2019c).
+\newblock Precision and recall --- {Wikipedia}{,} the free encyclopedia.
+\newblock
+  \url{https://en.wikipedia.org/w/index.php?title=Precision_and_recall&oldid=900147451}.
+\newblock [Online; acessado em 29 de junho de 2019].
+
+\end{thebibliography}
