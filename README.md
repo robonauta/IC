@@ -22,7 +22,7 @@ $ java ImageTransf
 
 ## Desenvolvimento
 
- * **localslic**: aplica o algoritmo SLIC em regiões de interesse, que são indicadas por uma imagem binária que serve como máscara. Execução: 
+ * **LocalSLIC**: contém o código que aplica o algoritmo SLIC em regiões de interesse, que são indicadas por uma imagem binária que serve como máscara. Execução: 
 
 ```
 image = io.imread('filename.jpg')
@@ -30,4 +30,18 @@ processor = SLIC(image = image, binaryImg = binaryImg, K = 10000, M = 1)
 labels = processor.execute(iterations = 3, labWeight = 0.2)
 ``` 
 
- 
+* **ImageSegmentation**: contém imagens produzidas por cada um dos métodos de segmentações abordados neste trabalho. 
+
+* **MAC0215**: contém material produzido durante a disciplina "Atividade Curricular em Pesquisa". Um documento com o acompanhamento das atividades pode ser conferido no _README_. 
+
+ * **Network**: contém os códigos que criam uma rede convolucional, treinam e a testam em diferentes granularidades. As imagens de treinamento estão na pasta _train_, as de teste, na pasta _test_. Para reproduzir os experimentos, basta fazer: 
+
+ ``` 
+python3 conv.py
+ ``` 
+
+* **Results**: contém o relatório final relatando os resultados obtidos apresentado a FAPESP. Além disso, contém o pôster apresentado ao final da disciplina MAC0215.  
+
+## Financiamento 
+
+Este projeto foi financiado pela Fundação de Amparo à Pesquisa do Estado de São Paulo, sob processo n.º  2018/11899-8. 

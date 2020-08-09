@@ -1,0 +1,71 @@
+#####################################################################
+Model: experiments/cc/model_cc_Adam_binary_crossentropy_20_256_2.h5
+00000085.jpg
+         IN TERMS OF PIXELS: 
+         tp: 463260
+         tn: 6904597
+         fp: 8720
+         fn: 3254
+         accuracy: 0.9983774696195618
+         precision: 0.9815246408746133
+         recall: 0.9930248609902382
+         IN TERMS OF REGIONS: 
+         tp: 1597
+         tn: 189
+         fp: 12
+         fn: 2
+         accuracy: 0.9922222222222222
+         precision: 0.9925419515226849
+         recall: 0.9987492182614134
+00000088.jpg
+         IN TERMS OF PIXELS: 
+         tp: 240992
+         tn: 6551506
+         fp: 42626
+         fn: 7943
+         accuracy: 0.9926101848776288
+         precision: 0.8497062950870538
+         recall: 0.96809207222769
+         IN TERMS OF REGIONS: 
+         tp: 1672
+         tn: 4341
+         fp: 1305
+         fn: 0
+         accuracy: 0.8216725881388357
+         precision: 0.5616392341283171
+         recall: 1.0
+00000274.jpg
+         IN TERMS OF PIXELS: 
+         tp: 801284
+         tn: 5640210
+         fp: 6762
+         fn: 4605
+         accuracy: 0.9982384557795372
+         precision: 0.9916316645339498
+         recall: 0.9942858135549685
+         IN TERMS OF REGIONS: 
+         tp: 5498
+         tn: 51
+         fp: 83
+         fn: 0
+         accuracy: 0.9852627840909091
+         precision: 0.9851281132413546
+         recall: 1.0
+#####################################################################
+Totals IN TERMS OF PIXELS: 
+tp: 1505536
+tn: 19096313
+fp: 58108
+fn: 15802
+accuracy: 0.9964252823802019
+precision: 0.9628380884651494
+recall: 0.989613090582106
+Totals IN TERMS OF REGIONS: 
+tp: 8767
+tn: 4581
+fp: 1400
+fn: 2
+accuracy: 0.9049491525423728
+precision: 0.8622995967345333
+recall: 0.9997719238225568
+#####################################################################
